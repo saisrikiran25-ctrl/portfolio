@@ -32,7 +32,12 @@ jobs:
       - name: Prepare deploy artifact
         run: |
           mkdir -p _site
-          cp *.html *.css *.js _site/
+          rsync -a ./ _site/ \
+            --exclude '.git/' \
+            --exclude '.github/' \
+            --exclude 'README.md' \
+            --exclude '.gitignore'
+          test -f _site/index.html
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
