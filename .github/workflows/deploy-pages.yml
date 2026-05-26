@@ -33,7 +33,7 @@ jobs:
         run: |
           mkdir -p _site
           for file in index.html styles.css app.js generator.js scene.js config.example.js; do
-            test -f "$file"
+            test -f "$file" || { echo "Missing required file: $file"; exit 1; }
           done
           cp index.html styles.css app.js generator.js scene.js config.example.js _site/
           for dir in assets img images fonts; do
@@ -41,7 +41,7 @@ jobs:
               cp -R "$dir" _site/
             fi
           done
-          test -f _site/index.html
+          test -f _site/index.html || { echo "Deployment failed: index.html not found in _site"; exit 1; }
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
