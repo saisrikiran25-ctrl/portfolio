@@ -13,7 +13,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages
+  group: pages-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -32,7 +32,7 @@ jobs:
       - name: Prepare deploy artifact
         run: |
           mkdir -p _site
-          cp index.html styles.css app.js generator.js scene.js _site/
+          cp *.html *.css *.js _site/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
