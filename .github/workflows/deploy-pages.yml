@@ -32,11 +32,12 @@ jobs:
       - name: Prepare deploy artifact
         run: |
           mkdir -p _site
-          rsync -a ./ _site/ \
-            --exclude '.git/' \
-            --exclude '.github/' \
-            --exclude 'README.md' \
-            --exclude '.gitignore'
+          cp index.html styles.css app.js generator.js scene.js config.example.js _site/
+          for dir in assets img images fonts; do
+            if [ -d "$dir" ]; then
+              cp -R "$dir" _site/
+            fi
+          done
           test -f _site/index.html
 
       - name: Upload artifact
