@@ -61,6 +61,14 @@ python -m http.server 8000
 # → http://localhost:8000
 ```
 
+### 4. Publish publicly with GitHub Pages
+
+1. Push this repository to GitHub.
+2. In your GitHub repo, go to **Settings → Pages**.
+3. Under **Build and deployment**, set **Source** to **GitHub Actions**.
+4. Push to `main` or `master` (or run **Deploy to GitHub Pages** manually in **Actions**).
+5. Your app will be live at: `https://<your-username>.github.io/<repo-name>/`
+
 ---
 
 ## 📁 File Structure
