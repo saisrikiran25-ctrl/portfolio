@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Resume-to-Portfolio: Transform your resume into a stunning 3D-enhanced portfolio website instantly. No code required." />
+  <meta name="keywords" content="resume, portfolio, generator, 3D, web developer, career" />
+  <meta property="og:title" content="PortfolioForge — Resume-to-Portfolio Generator" />
+  <meta property="og:description" content="Transform your resume into a stunning 3D portfolio website in seconds." />
+  <title>PortfolioForge — Resume-to-Portfolio Generator</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+
+  <!-- Three.js CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ===================== THREE.JS CANVAS ===================== -->
+  <canvas id="bg-canvas" aria-hidden="true"></canvas>
+
+  <!-- ===================== PRELOADER ===================== -->
+  <div id="preloader" role="status" aria-label="Loading PortfolioForge">
+    <div class="preloader-inner">
+      <div class="preloader-logo">
+        <span class="logo-pf">PF</span>
+      </div>
+      <div class="preloader-bar">
+        <div class="preloader-fill" id="preloader-fill"></div>
+      </div>
+      <p class="preloader-text">Initializing PortfolioForge...</p>
+    </div>
+  </div>
+
+  <!-- ===================== MAIN APP ===================== -->
+  <div id="app" class="app-container hidden">
+
+    <!-- HEADER -->
+    <header class="app-header" id="app-header">
+      <nav class="header-nav">
+        <div class="header-brand">
+          <div class="brand-icon" aria-hidden="true">
+            <div class="brand-cube">
+              <div class="cube-face front">PF</div>
+              <div class="cube-face back">PF</div>
+              <div class="cube-face left">PF</div>
+              <div class="cube-face right">PF</div>
+              <div class="cube-face top">PF</div>
+              <div class="cube-face bottom">PF</div>
+            </div>
+          </div>
+          <div class="brand-text">
+            <span class="brand-name">PortfolioForge</span>
+            <span class="brand-tagline">Resume → Portfolio</span>
+          </div>
+        </div>
+        <div class="header-actions">
+          <span class="header-badge" aria-label="AI Powered">✦ AI-Powered</span>
+          <a href="#generator-section" class="btn btn-ghost btn-sm" id="nav-generate-btn">Generate Now</a>
+        </div>
+      </nav>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero-section" id="hero-section" aria-labelledby="hero-headline">
+      <div class="hero-content">
+        <div class="hero-eyebrow">
+          <div class="eyebrow-dot" aria-hidden="true"></div>
+          <span>Next-Generation Portfolio Builder</span>
+        </div>
+        <h1 class="hero-headline" id="hero-headline">
+          Transform Your<br />
+          <span class="gradient-text">Resume</span> Into a<br />
+          <span class="gradient-text-alt">Living Portfolio</span>
+        </h1>
+        <p class="hero-sub">
+          Paste your resume details. Watch intelligent generation craft a multi-page, 3D-enhanced portfolio website with editorial-grade typography — ready to deploy in minutes.
+        </p>
+        <div class="hero-cta-group">
+          <a href="#generator-section" class="btn btn-primary btn-lg" id="hero-start-btn">
+            <span class="btn-icon" aria-hidden="true">⚡</span>
+            Start Forging
+          </a>
+          <button class="btn btn-outline btn-lg" id="hero-demo-btn" aria-label="Load demo resume data">
+            <span class="btn-icon" aria-hidden="true">◎</span>
+            Load Demo
+          </button>
+        </div>
+        <div class="hero-stats" aria-label="Platform statistics">
+          <div class="stat-item">
+            <span class="stat-value" id="stat-portfolios">12,847</span>
+            <span class="stat-label">Portfolios Generated</span>
+          </div>
+          <div class="stat-divider" aria-hidden="true"></div>
+          <div class="stat-item">
+            <span class="stat-value">5</span>
+            <span class="stat-label">Files Generated</span>
+          </div>
+          <div class="stat-divider" aria-hidden="true"></div>
+          <div class="stat-item">
+            <span class="stat-value">3D</span>
+            <span class="stat-label">Enhanced Output</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <div class="floating-card card-1">
+          <div class="card-dot cyan"></div>
+          <span>index.html</span>
+        </div>
+        <div class="floating-card card-2">
+          <div class="card-dot purple"></div>
+          <span>styles.css</span>
+        </div>
+        <div class="floating-card card-3">
+          <div class="card-dot gold"></div>
+          <span>portfolio.js</span>
+        </div>
+        <div class="hero-orb hero-orb-1"></div>
+        <div class="hero-orb hero-orb-2"></div>
+        <div class="hero-device">
+          <div class="device-screen">
+            <div class="screen-header">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+            </div>
+            <div class="screen-content">
+              <div class="screen-line w-80 cyan-line"></div>
+              <div class="screen-line w-60"></div>
+              <div class="screen-line w-90"></div>
+              <div class="screen-line w-40 purple-line"></div>
+              <div class="screen-line w-70"></div>
+              <div class="screen-line w-55"></div>
+              <div class="screen-line w-80 cyan-line"></div>
+              <div class="screen-line w-65"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="how-section" id="how-section" aria-labelledby="how-headline">
+      <div class="section-container">
+        <div class="section-header">
+          <span class="section-eyebrow">Process</span>
+          <h2 class="section-title" id="how-headline">Three Steps to Launch</h2>
+        </div>
+        <div class="steps-grid" role="list">
+          <div class="step-card" role="listitem" aria-label="Step 1: Input">
+            <div class="step-number" aria-hidden="true">01</div>
+            <div class="step-icon" aria-hidden="true">📝</div>
+            <h3 class="step-title">Input Your Resume</h3>
+            <p class="step-desc">Fill in structured fields with your name, experience, skills, projects, and education. No formatting needed.</p>
+            <div class="step-connector" aria-hidden="true"></div>
+          </div>
+          <div class="step-card" role="listitem" aria-label="Step 2: Generate">
+            <div class="step-number" aria-hidden="true">02</div>
+            <div class="step-icon" aria-hidden="true">⚡</div>
+            <h3 class="step-title">Generate Portfolio</h3>
+            <p class="step-desc">Click Generate. The engine parses your data and outputs a complete, production-ready multi-page portfolio site.</p>
+            <div class="step-connector" aria-hidden="true"></div>
+          </div>
+          <div class="step-card" role="listitem" aria-label="Step 3: Deploy">
+            <div class="step-number" aria-hidden="true">03</div>
+            <div class="step-icon" aria-hidden="true">🚀</div>
+            <h3 class="step-title">Deploy & Share</h3>
+            <p class="step-desc">Copy the generated code, follow the deployment guide, and go live on GitHub Pages, Vercel, or Netlify for free.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GENERATOR SECTION -->
+    <section class="generator-section" id="generator-section" aria-labelledby="generator-headline">
+      <div class="section-container">
+        <div class="section-header">
+          <span class="section-eyebrow">Generator</span>
+          <h2 class="section-title" id="generator-headline">Forge Your Portfolio</h2>
+          <p class="section-sub">Complete each section below. The more detail you provide, the richer your generated portfolio becomes.</p>
+        </div>
+
+        <!-- PROGRESS BAR -->
+        <div class="form-progress" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" aria-label="Form completion progress" id="form-progress-container">
+          <div class="progress-labels">
+            <span id="progress-label">0% Complete</span>
+            <span id="progress-section-label">Section: Personal Info</span>
+          </div>
+          <div class="progress-track">
+            <div class="progress-fill" id="form-progress-fill"></div>
+          </div>
+          <div class="progress-steps" aria-hidden="true">
+            <button class="progress-step active" data-step="0" title="Personal Info">1</button>
+            <button class="progress-step" data-step="1" title="About & Skills">2</button>
+            <button class="progress-step" data-step="2" title="Experience">3</button>
+            <button class="progress-step" data-step="3" title="Projects">4</button>
+            <button class="progress-step" data-step="4" title="Education & Contact">5</button>
+          </div>
+        </div>
+
+        <!-- FORM WIZARD -->
+        <form id="resume-form" novalidate aria-label="Resume input form">
+
+          <!-- STEP 1: PERSONAL INFO -->
+          <fieldset class="form-step active" id="step-0" aria-labelledby="step-0-legend">
+            <legend id="step-0-legend" class="step-legend">
+              <span class="step-icon-sm" aria-hidden="true">👤</span>
+              Personal Information
+            </legend>
+            <div class="fields-grid fields-2">
+              <div class="field-group">
+                <label for="field-name" class="field-label">Full Name <span class="required" aria-label="required">*</span></label>
+                <input type="text" id="field-name" name="name" class="field-input" placeholder="e.g. Alexandra Chen" required autocomplete="name" />
+                <span class="field-hint">Your full professional name</span>
+              </div>
+              <div class="field-group">
+                <label for="field-title" class="field-label">Professional Title <span class="required" aria-label="required">*</span></label>
+                <input type="text" id="field-title" name="title" class="field-input" placeholder="e.g. Senior Full-Stack Engineer" required />
+                <span class="field-hint">Your current or desired role</span>
+              </div>
+              <div class="field-group">
+                <label for="field-tagline" class="field-label">Personal Tagline</label>
+                <input type="text" id="field-tagline" name="tagline" class="field-input" placeholder="e.g. Building products that shape the future" />
+                <span class="field-hint">A memorable one-liner for your hero section</span>
+              </div>
+              <div class="field-group">
+                <label for="field-location" class="field-label">Location</label>
+                <input type="text" id="field-location" name="location" class="field-input" placeholder="e.g. San Francisco, CA" autocomplete="address-level2" />
+              </div>
+              <div class="field-group">
+                <label for="field-accent" class="field-label">Portfolio Accent Color</label>
+                <div class="color-picker-wrap">
+                  <input type="color" id="field-accent" name="accentColor" class="field-color" value="#00d4ff" />
+                  <span class="color-preview" id="color-preview-text">#00d4ff — Cyber Cyan</span>
+                </div>
+                <span class="field-hint">Primary color for your generated portfolio</span>
+              </div>
+              <div class="field-group">
+                <label for="field-theme" class="field-label">Portfolio Theme</label>
+                <select id="field-theme" name="theme" class="field-select">
+                  <option value="dark">Dark — Obsidian & Neon</option>
+                  <option value="light">Light — Crisp & Clean</option>
+                  <option value="editorial">Editorial — WSJ / Forbes Style</option>
+                  <option value="minimal">Minimal — Swiss Design</option>
+                </select>
+              </div>
+            </div>
+            <div class="step-nav">
+              <div></div>
+              <button type="button" class="btn btn-primary" id="step-0-next" onclick="window.appState && appState.nextStep()">Next: About & Skills →</button>
+            </div>
+          </fieldset>
+
+          <!-- STEP 2: ABOUT & SKILLS -->
+          <fieldset class="form-step" id="step-1" aria-labelledby="step-1-legend">
+            <legend id="step-1-legend" class="step-legend">
+              <span class="step-icon-sm" aria-hidden="true">🧠</span>
+              About & Skills
+            </legend>
+            <div class="fields-grid fields-1">
+              <div class="field-group">
+                <label for="field-bio" class="field-label">Professional Bio <span class="required" aria-label="required">*</span></label>
+                <textarea id="field-bio" name="bio" class="field-textarea" rows="5" placeholder="Write a compelling 2-3 sentence professional summary. Example: I'm a full-stack engineer with 8 years building high-scale platforms at Series A to Fortune 500 companies. I specialize in React, Node.js, and distributed systems. Previously at Stripe and Airbnb." required></textarea>
+                <div class="char-counter"><span id="bio-count">0</span>/600 characters</div>
+              </div>
+            </div>
+            <div class="skills-builder" id="skills-builder">
+              <label class="field-label">Technical Skills</label>
+              <div class="skills-categories">
+                <div class="skill-category">
+                  <label for="skills-languages" class="skill-cat-label">Languages</label>
+                  <input type="text" id="skills-languages" name="skillsLanguages" class="field-input" placeholder="JavaScript, TypeScript, Python, Rust" />
+                </div>
+                <div class="skill-category">
+                  <label for="skills-frameworks" class="skill-cat-label">Frameworks & Libraries</label>
+                  <input type="text" id="skills-frameworks" name="skillsFrameworks" class="field-input" placeholder="React, Next.js, Node.js, FastAPI" />
+                </div>
+                <div class="skill-category">
+                  <label for="skills-tools" class="skill-cat-label">Tools & Platforms</label>
+                  <input type="text" id="skills-tools" name="skillsTools" class="field-input" placeholder="AWS, Docker, PostgreSQL, Redis, GitHub" />
+                </div>
+                <div class="skill-category">
+                  <label for="skills-other" class="skill-cat-label">Other Skills</label>
+                  <input type="text" id="skills-other" name="skillsOther" class="field-input" placeholder="System Design, Agile, CI/CD, REST APIs" />
+                </div>
+              </div>
+            </div>
+            <div class="step-nav">
+              <button type="button" class="btn btn-ghost" onclick="window.appState && appState.prevStep()">← Back</button>
+              <button type="button" class="btn btn-primary" onclick="window.appState && appState.nextStep()">Next: Experience →</button>
+            </div>
+          </fieldset>
+
+          <!-- STEP 3: EXPERIENCE -->
+          <fieldset class="form-step" id="step-2" aria-labelledby="step-2-legend">
+            <legend id="step-2-legend" class="step-legend">
+              <span class="step-icon-sm" aria-hidden="true">💼</span>
+              Work Experience
+            </legend>
+            <div class="dynamic-entries" id="experience-entries">
+              <!-- Entries injected by JS -->
+            </div>
+            <button type="button" class="btn btn-dashed" id="add-experience-btn" onclick="window.appState && appState.addExperience()">
+              <span aria-hidden="true">+</span> Add Another Role
+            </button>
+            <div class="step-nav">
+              <button type="button" class="btn btn-ghost" onclick="window.appState && appState.prevStep()">← Back</button>
+              <button type="button" class="btn btn-primary" onclick="window.appState && appState.nextStep()">Next: Projects →</button>
+            </div>
+          </fieldset>
+
+          <!-- STEP 4: PROJECTS -->
+          <fieldset class="form-step" id="step-3" aria-labelledby="step-3-legend">
+            <legend id="step-3-legend" class="step-legend">
+              <span class="step-icon-sm" aria-hidden="true">🛠️</span>
+              Projects
+            </legend>
+            <div class="dynamic-entries" id="project-entries">
+              <!-- Entries injected by JS -->
+            </div>
+            <button type="button" class="btn btn-dashed" id="add-project-btn" onclick="window.appState && appState.addProject()">
+              <span aria-hidden="true">+</span> Add Another Project
+            </button>
+            <div class="step-nav">
+              <button type="button" class="btn btn-ghost" onclick="window.appState && appState.prevStep()">← Back</button>
+              <button type="button" class="btn btn-primary" onclick="window.appState && appState.nextStep()">Next: Education & Contact →</button>
+            </div>
+          </fieldset>
+
+          <!-- STEP 5: EDUCATION & CONTACT -->
+          <fieldset class="form-step" id="step-4" aria-labelledby="step-4-legend">
+            <legend id="step-4-legend" class="step-legend">
+              <span class="step-icon-sm" aria-hidden="true">🎓</span>
+              Education & Contact Links
+            </legend>
+            <div class="fields-grid fields-2">
+              <div class="field-group">
+                <label for="field-edu-degree" class="field-label">Degree</label>
+                <input type="text" id="field-edu-degree" name="eduDegree" class="field-input" placeholder="B.S. Computer Science" />
+              </div>
+              <div class="field-group">
+                <label for="field-edu-school" class="field-label">Institution</label>
+                <input type="text" id="field-edu-school" name="eduSchool" class="field-input" placeholder="MIT" />
+              </div>
+              <div class="field-group">
+                <label for="field-edu-year" class="field-label">Graduation Year</label>
+                <input type="text" id="field-edu-year" name="eduYear" class="field-input" placeholder="2019" />
+              </div>
+              <div class="field-group">
+                <label for="field-edu-gpa" class="field-label">GPA / Honors</label>
+                <input type="text" id="field-edu-gpa" name="eduGpa" class="field-input" placeholder="3.9 GPA, Summa Cum Laude" />
+              </div>
+            </div>
+            <div class="section-divider" aria-hidden="true"></div>
+            <p class="fields-section-label">Contact & Social Links</p>
+            <div class="fields-grid fields-2">
+              <div class="field-group">
+                <label for="field-email" class="field-label">Email <span class="required" aria-label="required">*</span></label>
+                <input type="email" id="field-email" name="email" class="field-input" placeholder="alex@example.com" required autocomplete="email" />
+              </div>
+              <div class="field-group">
+                <label for="field-github" class="field-label">GitHub URL</label>
+                <input type="url" id="field-github" name="github" class="field-input" placeholder="https://github.com/username" />
+              </div>
+              <div class="field-group">
+                <label for="field-linkedin" class="field-label">LinkedIn URL</label>
+                <input type="url" id="field-linkedin" name="linkedin" class="field-input" placeholder="https://linkedin.com/in/username" />
+              </div>
+              <div class="field-group">
+                <label for="field-website" class="field-label">Personal Website</label>
+                <input type="url" id="field-website" name="website" class="field-input" placeholder="https://yoursite.com" />
+              </div>
+              <div class="field-group">
+                <label for="field-twitter" class="field-label">Twitter / X</label>
+                <input type="url" id="field-twitter" name="twitter" class="field-input" placeholder="https://twitter.com/username" />
+              </div>
+              <div class="field-group">
+                <label for="field-phone" class="field-label">Phone (optional)</label>
+                <input type="tel" id="field-phone" name="phone" class="field-input" placeholder="+1 (555) 000-0000" autocomplete="tel" />
+              </div>
+            </div>
+            <div class="step-nav">
+              <button type="button" class="btn btn-ghost" onclick="window.appState && appState.prevStep()">← Back</button>
+              <button type="submit" class="btn btn-primary btn-generate" id="generate-btn">
+                <span class="btn-icon" aria-hidden="true">⚡</span>
+                <span>Forge Portfolio</span>
+                <div class="btn-shimmer" aria-hidden="true"></div>
+              </button>
+            </div>
+          </fieldset>
+
+        </form>
+      </div>
+    </section>
+
+    <!-- OUTPUT SECTION -->
+    <section class="output-section hidden" id="output-section" aria-labelledby="output-headline">
+      <div class="section-container">
+        <div class="output-header">
+          <div class="output-success-badge" aria-label="Generation successful">
+            <span aria-hidden="true">✦</span> Portfolio Generated Successfully
+          </div>
+          <h2 class="section-title" id="output-headline">Your Portfolio Code</h2>
+          <p class="section-sub">Copy each file below and save with the specified filename. Then follow the deployment guide.</p>
+          <div class="output-actions">
+            <button class="btn btn-primary" id="download-all-btn" aria-label="Download all portfolio files as ZIP">
+              <span aria-hidden="true">⬇</span> Download All Files
+            </button>
+            <button class="btn btn-outline" id="regenerate-btn" aria-label="Start over and generate new portfolio">
+              <span aria-hidden="true">↺</span> Start Over
+            </button>
+          </div>
+        </div>
+
+        <!-- File Tabs -->
+        <div class="code-tabs" role="tablist" aria-label="Generated portfolio files">
+          <button class="code-tab active" role="tab" aria-selected="true" aria-controls="tab-panel-html" id="tab-html" data-file="html">index.html</button>
+          <button class="code-tab" role="tab" aria-selected="false" aria-controls="tab-panel-css" id="tab-css" data-file="css">styles.css</button>
+          <button class="code-tab" role="tab" aria-selected="false" aria-controls="tab-panel-js" id="tab-js" data-file="js">app.js</button>
+        </div>
+
+        <!-- Code Panels -->
+        <div class="code-panels">
+          <div class="code-panel active" id="tab-panel-html" role="tabpanel" aria-labelledby="tab-html">
+            <div class="code-panel-header">
+              <span class="code-file-label" aria-hidden="true">📄 index.html</span>
+              <div class="code-panel-actions">
+                <button class="btn-copy" id="copy-html" aria-label="Copy HTML code">Copy Code</button>
+              </div>
+            </div>
+            <pre class="code-block" id="output-html"><code></code></pre>
+          </div>
+          <div class="code-panel" id="tab-panel-css" role="tabpanel" aria-labelledby="tab-css">
+            <div class="code-panel-header">
+              <span class="code-file-label" aria-hidden="true">🎨 styles.css</span>
+              <div class="code-panel-actions">
+                <button class="btn-copy" id="copy-css" aria-label="Copy CSS code">Copy Code</button>
+              </div>
+            </div>
+            <pre class="code-block" id="output-css"><code></code></pre>
+          </div>
+          <div class="code-panel" id="tab-panel-js" role="tabpanel" aria-labelledby="tab-js">
+            <div class="code-panel-header">
+              <span class="code-file-label" aria-hidden="true">⚡ app.js</span>
+              <div class="code-panel-actions">
+                <button class="btn-copy" id="copy-js" aria-label="Copy JavaScript code">Copy Code</button>
+              </div>
+            </div>
+            <pre class="code-block" id="output-js"><code></code></pre>
+          </div>
+        </div>
+
+        <!-- Portfolio Preview -->
+        <div class="preview-section" id="preview-section" aria-label="Portfolio live preview">
+          <div class="preview-header">
+            <h3 class="preview-title">Live Preview</h3>
+            <div class="preview-controls">
+              <button class="preview-device-btn active" data-device="desktop" aria-label="Desktop preview" title="Desktop">🖥</button>
+              <button class="preview-device-btn" data-device="tablet" aria-label="Tablet preview" title="Tablet">📱</button>
+              <button class="preview-device-btn" data-device="mobile" aria-label="Mobile preview" title="Mobile">📲</button>
+            </div>
+          </div>
+          <div class="preview-frame-wrap" id="preview-frame-wrap">
+            <iframe id="portfolio-preview" title="Portfolio Preview" sandbox="allow-scripts allow-same-origin"></iframe>
+          </div>
+        </div>
+
+        <!-- Deployment Guide -->
+        <div class="deploy-guide" id="deploy-guide" aria-labelledby="deploy-title">
+          <div class="deploy-header">
+            <h3 class="deploy-title" id="deploy-title">🚀 Deployment & Preview Guide</h3>
+            <p class="deploy-sub">Get your portfolio live in under 10 minutes — completely free.</p>
+          </div>
+
+          <div class="deploy-tabs" role="tablist" aria-label="Deployment options">
+            <button class="deploy-tab active" role="tab" data-deploy="preview" aria-selected="true" id="dtab-preview">⚡ Preview Locally</button>
+            <button class="deploy-tab" role="tab" data-deploy="github" aria-selected="false" id="dtab-github">GitHub Pages</button>
+            <button class="deploy-tab" role="tab" data-deploy="netlify" aria-selected="false" id="dtab-netlify">Netlify</button>
+            <button class="deploy-tab" role="tab" data-deploy="vercel" aria-selected="false" id="dtab-vercel">Vercel</button>
+          </div>
+
+          <div class="deploy-panels">
+            <!-- Preview Locally -->
+            <div class="deploy-panel active" id="dpanel-preview" role="tabpanel" aria-labelledby="dtab-preview">
+              <div class="deploy-method">
+                <h4 class="method-title">Option A — VS Code Live Server (Recommended)</h4>
+                <ol class="deploy-steps">
+                  <li>Download all 3 generated files (use the <strong>Download All Files</strong> button above)</li>
+                  <li>Create a folder, e.g. <code>my-portfolio/</code>, and place all files inside</li>
+                  <li>Open the folder in VS Code</li>
+                  <li>Install the <strong>Live Server</strong> extension by Ritwick Dey (Extensions panel → search "Live Server")</li>
+                  <li>Right-click <code>index.html</code> in the file explorer → <strong>"Open with Live Server"</strong></li>
+                  <li>Your portfolio opens instantly at <code>http://127.0.0.1:5500</code> 🎉</li>
+                </ol>
+              </div>
+              <div class="deploy-method">
+                <h4 class="method-title">Option B — Browser-Based (Instant, No Install)</h4>
+                <ol class="deploy-steps">
+                  <li>Go to <a href="https://codepen.io" target="_blank" rel="noopener noreferrer" class="deploy-link">CodePen.io</a></li>
+                  <li>Create a new pen and paste the <code>index.html</code> content into the HTML panel</li>
+                  <li>Paste <code>styles.css</code> into the CSS panel</li>
+                  <li>Paste <code>app.js</code> into the JS panel</li>
+                  <li>See your live portfolio instantly — no account required for basic preview</li>
+                </ol>
+              </div>
+              <div class="deploy-method">
+                <h4 class="method-title">Option C — Python HTTP Server</h4>
+                <ol class="deploy-steps">
+                  <li>Save all files to a folder</li>
+                  <li>Open terminal in that folder</li>
+                  <li>Run: <code>python -m http.server 8000</code></li>
+                  <li>Open <code>http://localhost:8000</code> in your browser</li>
+                </ol>
+              </div>
+            </div>
+
+            <!-- GitHub Pages -->
+            <div class="deploy-panel" id="dpanel-github" role="tabpanel" aria-labelledby="dtab-github">
+              <div class="deploy-method">
+                <h4 class="method-title">GitHub Pages — Free Hosting (yourname.github.io)</h4>
+                <ol class="deploy-steps">
+                  <li>Create a free account at <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="deploy-link">github.com</a></li>
+                  <li>Create a new repository named <strong><code>yourname.github.io</code></strong> (replace "yourname" with your GitHub username)</li>
+                  <li>Download your 3 portfolio files using the button above</li>
+                  <li>Upload all files to your repository via the GitHub web interface (drag &amp; drop)</li>
+                  <li>Go to repository <strong>Settings → Pages → Source → Deploy from branch → main</strong></li>
+                  <li>Wait 2-3 minutes — your portfolio is live at <strong>https://yourname.github.io</strong> 🎉</li>
+                </ol>
+                <div class="deploy-tip" role="note">
+                  <strong>Pro Tip:</strong> Use the GitHub CLI: <code>git init &amp;&amp; git add . &amp;&amp; git commit -m "Launch portfolio" &amp;&amp; git push</code>
+                </div>
+              </div>
+            </div>
+
+            <!-- Netlify -->
+            <div class="deploy-panel" id="dpanel-netlify" role="tabpanel" aria-labelledby="dtab-netlify">
+              <div class="deploy-method">
+                <h4 class="method-title">Netlify — Drag &amp; Drop Deployment (Easiest)</h4>
+                <ol class="deploy-steps">
+                  <li>Go to <a href="https://netlify.com" target="_blank" rel="noopener noreferrer" class="deploy-link">netlify.com</a> — sign up free</li>
+                  <li>Download all portfolio files and put them in a folder</li>
+                  <li>From the Netlify dashboard, find the <strong>"Drag and drop your site folder here"</strong> area</li>
+                  <li>Drag your portfolio folder directly onto the Netlify dashboard</li>
+                  <li>Netlify deploys in ~10 seconds and gives you a URL like <code>random-name.netlify.app</code></li>
+                  <li>Optionally, go to <strong>Site Settings → Change site name</strong> to customize your URL</li>
+                  <li>Connect a custom domain from <strong>Domain Management</strong> anytime</li>
+                </ol>
+              </div>
+            </div>
+
+            <!-- Vercel -->
+            <div class="deploy-panel" id="dpanel-vercel" role="tabpanel" aria-labelledby="dtab-vercel">
+              <div class="deploy-method">
+                <h4 class="method-title">Vercel — GitHub-Integrated Deployment</h4>
+                <ol class="deploy-steps">
+                  <li>Push your portfolio files to a GitHub repository (see GitHub steps above)</li>
+                  <li>Go to <a href="https://vercel.com" target="_blank" rel="noopener noreferrer" class="deploy-link">vercel.com</a> and sign up with your GitHub account</li>
+                  <li>Click <strong>"New Project"</strong> → Import your portfolio repository</li>
+                  <li>Vercel auto-detects it's a static site — click <strong>Deploy</strong></li>
+                  <li>Your portfolio is live at <code>yourproject.vercel.app</code> in under 60 seconds</li>
+                  <li>Every future push to GitHub automatically redeploys — instant CD pipeline 🔄</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="app-footer" role="contentinfo">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <span class="brand-name">PortfolioForge</span>
+          <span class="footer-tagline">Built with precision &amp; passion</span>
+        </div>
+        <div class="footer-links">
+          <span class="footer-credit">Powered by intelligent generation</span>
+        </div>
+      </div>
+    </footer>
+
+  </div><!-- /app -->
+
+  <!-- TOAST NOTIFICATION -->
+  <div class="toast-container" id="toast-container" role="alert" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- Scripts -->
+  <script src="config.js"></script>
+  <script src="scene.js" defer></script>
+  <script src="generator.js" defer></script>
+  <script src="app.js" defer></script>
+</body>
+</html>

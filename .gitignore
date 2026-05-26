@@ -1,0 +1,12 @@
+# PortfolioForge — .gitignore
+
+# Private API config (contains your OpenRouter key — NEVER commit this)
+config.js
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/settings.json
+*.swp
