@@ -13,7 +13,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages-${{ github.ref }}
+  group: pages
   cancel-in-progress: true
 
 jobs:
@@ -32,6 +32,9 @@ jobs:
       - name: Prepare deploy artifact
         run: |
           mkdir -p _site
+          for file in index.html styles.css app.js generator.js scene.js config.example.js; do
+            test -f "$file"
+          done
           cp index.html styles.css app.js generator.js scene.js config.example.js _site/
           for dir in assets img images fonts; do
             if [ -d "$dir" ]; then
