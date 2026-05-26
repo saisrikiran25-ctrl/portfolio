@@ -32,10 +32,11 @@ jobs:
       - name: Prepare deploy artifact
         run: |
           mkdir -p _site
-          for file in index.html styles.css app.js generator.js scene.js config.example.js; do
+          files=(index.html styles.css app.js generator.js scene.js config.example.js)
+          for file in "${files[@]}"; do
             test -f "$file" || { echo "Missing required file: $file"; exit 1; }
           done
-          cp index.html styles.css app.js generator.js scene.js config.example.js _site/
+          cp "${files[@]}" _site/
           for dir in assets img images fonts; do
             if [ -d "$dir" ]; then
               cp -R "$dir" _site/
